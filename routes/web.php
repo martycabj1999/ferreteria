@@ -18,3 +18,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::middleware(['admin'])->group(function () {
+    //Products
+    Route::get('/last-products', 'ProductController@lastProducts');      //Listado ultimos 15 products
+    Route::post('/admin/products/create', 'ProductController@create');   //Crear
+    Route::get('/admin/products/{product_id}/edit', 'ProductController@edit');      //Editar
+    Route::post('/admin/products/{product_id}/edit', 'ProductController@update');   //Editar
+    Route::delete('/admin/products/{product_id}', 'ProductController@destroy');   //Editar
+    Route::post('/admin/products', 'ProductController@store');           //Registrar
+});
+
+Route::get('/products', 'ProductController@index');            //Listado
