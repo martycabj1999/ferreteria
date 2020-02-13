@@ -35,7 +35,12 @@ class CartDetailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $cartDetail = new CartDetail();
+        $cartDetail->cart_id = auth()->user()->cart->id;
+        $cartDetail->product_id = $data->product_id;
+        $cartDetail->quantity = $data->quantity;
+        $cartDetail->save();
     }
 
     /**
@@ -78,8 +83,12 @@ class CartDetailController extends Controller
      * @param  \App\CartDetail  $cartDetail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CartDetail $cartDetail)
+    //public function destroy(CartDetail $cartDetail)
+    public function destroy(Request $request)
     {
-        //
+        $data = $request->all();
+        $cartDetail = CartDetail::find($data->cart_detail_id);
+        $cartDetail->delete();
+        return 'El carrito se elimino con exito';
     }
 }

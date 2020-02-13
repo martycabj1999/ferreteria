@@ -23,8 +23,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth', 'admin'])->prefix('admin')
     ->namespace('Admin')->group(function () {
     //Products
-    Route::get('admin/products', 'ProductController@index');            //Listado
-    Route::get('admin/last-products', 'ProductController@lastProducts');      //Listado ultimos 15 products
+    Route::get('/admin/products', 'ProductController@index');            //Listado
+    Route::get('/admin/last-products', 'ProductController@lastProducts');      //Listado ultimos 15 products
     Route::post('/admin/products/create', 'ProductController@create');   //Crear
     Route::get('/admin/products/{product_id}/edit', 'ProductController@edit');      //Editar
     Route::post('/admin/products/{product_id}/edit', 'ProductController@update');   //Editar
@@ -38,4 +38,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')
     Route::post('/products/{product_id}/images/select/{image_id}', 'ProductImageController@select');       //Eliminar
 });
 
-Route::post('products/{product_id}', 'ProductController@show');
+//Products
+Route::get('/products/{product_id}', 'ProductController@show');
+
+//Cart
+Route::post('/cart', 'CartDetailController@store');
+Route::delete('/cart', 'CartDetailController@destroy');
