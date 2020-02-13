@@ -31,3 +31,9 @@ Route::middleware(['admin'])->group(function () {
 });
 
 Route::get('/products', 'ProductController@index');            //Listado
+
+//IMAGES
+Route::get('/products/{product_id}/images', 'ProductImageController@index');            //Listado
+Route::post('/products/{product_id}/images', 'ProductImageController@store');           //Registrar
+Route::delete('/products/{product_id}/images', 'ProductImageController@destroy');       //Eliminar
+Route::post('/products/{product_id}/images/select/{image_id}', 'ProductImageController@destroy');       //Eliminar
