@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\Category;
 use Illuminate\Http\Request;
 use Response;
 
@@ -37,7 +38,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::orderBy('name')->get();
+        return Response::json($categories);
     }
 
     /**
@@ -71,7 +73,7 @@ class ProductController extends Controller
         $product->description = $data->description;
         $product->long_description = $data->long_description;
         $product->price = $data->price;
-        $product->category->name ? $data->category->name : 'General';
+        $product->category_id = $data->category_id;
         $product->save();
         return Response::json(array('El producto fue creado con exito'));
     }
@@ -96,8 +98,11 @@ class ProductController extends Controller
     //public function edit(Product $product)
     public function edit($product_id)
     {
+
+        $categories = Category::orderBy('name')->get();
         $product = Product::find($product_id);
-        return Response::json($product);
+        $info = [$categories, $product];
+        return Response::json($info);
     }
 
     /**
@@ -132,7 +137,7 @@ class ProductController extends Controller
         $product->description = $data->description;
         $product->long_description = $data->long_description;
         $product->price = $data->price;
-        $product->category->name ? $data->category->name : 'General';
+        $product->category_id = $data->category_id;
         $product->save();
         return Response::json(array('El producto fue editado con exito'));
     }

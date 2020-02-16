@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\State;
 use Illuminate\Http\Request;
+use Response;
 
 class StateController extends Controller
 {
@@ -14,7 +16,8 @@ class StateController extends Controller
      */
     public function index()
     {
-        //
+        $states = State::all();
+        return Response::json($states);//
     }
 
     /**
@@ -35,7 +38,10 @@ class StateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $this->validate($data, State::$rules, State::$messages);
+        State::create( $request->all() );
+        return Response::json(array('El estado fue creado con exito'));
     }
 
     /**
@@ -57,7 +63,8 @@ class StateController extends Controller
      */
     public function edit(State $state)
     {
-        //
+        $category = Category::find($category_id);
+        return Response::json($category);
     }
 
     /**
@@ -69,7 +76,10 @@ class StateController extends Controller
      */
     public function update(Request $request, State $state)
     {
-        //
+        $this->validate($request, State::$rules, State::$messages);
+        //Registrar en la BD el nuevo estado
+        $state->update( $request->all() );
+        return Response::json(array('El estado fue editado con exito'));
     }
 
     /**
@@ -80,6 +90,7 @@ class StateController extends Controller
      */
     public function destroy(State $state)
     {
-        //
+        $state->delete();
+        return Response::json(array('El producto fue eliminado con exito'));
     }
 }
