@@ -69,7 +69,11 @@ class CartController extends Controller
      */
     public function update(Request $request, Cart $cart)
     {
-        //
+        $cart = auth()->user()->cart;
+        $cart->status_id = 2;
+        $cart->save();
+
+        return Response::json("El carrito fue registrado con exito");
     }
 
     /**

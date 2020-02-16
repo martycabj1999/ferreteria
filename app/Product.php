@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    //Un producto tiene una sola categoria
+    //Relacion Uno a muchos, lado de muchos
     public function category(){
         return $this->belongsTo(Category::class);
     }

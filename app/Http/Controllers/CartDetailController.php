@@ -41,6 +41,8 @@ class CartDetailController extends Controller
         $cartDetail->product_id = $data->product_id;
         $cartDetail->quantity = $data->quantity;
         $cartDetail->save();
+        
+        return Response::json("El carrito fue creado con exito");
     }
 
     /**
@@ -88,7 +90,9 @@ class CartDetailController extends Controller
     {
         $data = $request->all();
         $cartDetail = CartDetail::find($data->cart_detail_id);
-        $cartDetail->delete();
-        return 'El carrito se elimino con exito';
+        if( $cartDetail->cart_id == auth()->user()->cart->id ){
+            $cartDetail->delete();
+            return Response::json("El carrito fue creado con exito");
+        }
     }
 }

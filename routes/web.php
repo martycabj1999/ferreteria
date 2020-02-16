@@ -20,8 +20,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::middleware(['auth', 'admin'])->prefix('admin')
-    ->namespace('Admin')->group(function () {
+/*Route::middleware(['auth', 'admin'])->prefix('admin')
+    ->namespace('Admin')->group(function () {*/
+Route::namespace('Admin')->group(function () {
     //Products
     Route::get('/admin/products', 'ProductController@index');            //Listado
     Route::get('/admin/last-products', 'ProductController@lastProducts');      //Listado ultimos 15 products
@@ -41,6 +42,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')
 //Products
 Route::get('/products/{product_id}', 'ProductController@show');
 
-//Cart
+//CartDetails
 Route::post('/cart', 'CartDetailController@store');
 Route::delete('/cart', 'CartDetailController@destroy');
+
+//Order
+Route::get('/order', 'CartController@update');
