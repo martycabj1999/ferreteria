@@ -33,7 +33,7 @@ Route::namespace('Admin')->group(function () {
     Route::post('/admin/products', 'ProductController@store');           //Registrar
     
     //IMAGES
-    Route::get('/products/{product_id}/images', 'ProductImageController@index');            //Listado
+    Route::get('/products/images', 'ProductImageController@index');            //Listado
     Route::post('/products/{product_id}/images', 'ProductImageController@store');           //Registrar
     Route::delete('/products/{product_id}/images', 'ProductImageController@destroy');       //Eliminar
     Route::post('/products/{product_id}/images/select/{image_id}', 'ProductImageController@select');       //Eliminar
@@ -46,19 +46,20 @@ Route::namespace('Admin')->group(function () {
     Route::post('/categories/{category_id}/edit', 'CategoryController@update');   //Editar
     Route::delete('/categories/{category_id}', 'CategoryController@destroy');   //Eliminar
     
-    //States
+    /*States
     Route::get('/states', 'StateController@index');            //Listado
     Route::get('/states/create', 'StateController@create');   //Crear
     Route::post('/states', 'StateController@store'); 
     Route::get('/states/{states}/edit', 'StateController@edit');      //Editar
     Route::post('/states/{states}/edit', 'StateController@update');   //Editar
-    Route::delete('/states/{states}', 'StateController@destroy');   //Eliminar
+    Route::delete('/states/{states}', 'StateController@destroy');   //Eliminar*/
+
+    Route::get('/categories/{category}', 'CategoryController@show');
 });
 
 //Products
 Route::get('/products/{product_id}', 'ProductController@show');
 //Categories
-Route::get('/categories/{category}', 'CategoryController@show');
 //Search
 Route::get('/search', 'SearchController@show');
 

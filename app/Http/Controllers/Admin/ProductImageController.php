@@ -16,11 +16,11 @@ class ProductImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($product_id)
+    public function index()
     {
-        $product = Product::find($product_id);
-        $images = $product->images()->orderBy('featured')->get();
-        return Response::json($images);
+        $product = ProductImage::all();
+        //$images = $product->images()->orderBy('featured')->get();
+        return Response::json($product);
     }
 
     /**
