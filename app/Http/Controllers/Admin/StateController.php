@@ -61,7 +61,7 @@ class StateController extends Controller
      * @param  \App\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function edit(State $state)
+    public function edit(State $state, $category_id)
     {
         $category = Category::find($category_id);
         return Response::json($category);
@@ -91,6 +91,6 @@ class StateController extends Controller
     public function destroy(State $state)
     {
         $state->delete();
-        return Response::json(array('El producto fue eliminado con exito'));
+        return Response::json(array('El estado fue eliminado con exito'));
     }
 }

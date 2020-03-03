@@ -17,6 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('states', 'Admin\StateController');
+Route::middleware(['jwt.auth'])->group(function(){
+    Route::resource('states', 'Admin\StateController');
+    Route::resource('roles', 'Admin\RoleController');
+});
 
-
+Route::post('login', 'AuthenticateController@authenticate')->name('login');

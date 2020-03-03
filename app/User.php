@@ -2,6 +2,7 @@
 
 namespace App;
 use App\Cart;
+use App\Role;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,6 +28,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
 
     public function carts(){
         return $this->hasMany(Cart::class);

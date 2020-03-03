@@ -24,6 +24,11 @@ class CreateUsersTable extends Migration
             $table->bigInteger('city_id')->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            //FK
+            $table->bigInteger('role_id')->nullable()->unsigned();
+            $table->foreign('role_id')->references('id')->on('roles')->unsigned();
+            $table->bigInteger('city_id')->nullable()->unsigned();
+            $table->foreign('city_id')->references('id')->on('cities')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });
