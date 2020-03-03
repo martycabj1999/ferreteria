@@ -17,9 +17,41 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['jwt.auth'])->group(function(){
-    Route::resource('states', 'Admin\StateController');
-    Route::resource('roles', 'Admin\RoleController');
+Route::post('login', 'AuthenticateController@authenticate')->name('login');
+
+//Route::middleware(['cors', 'jwt.auth'])->namespace('Admin')->group(function () {
+Route::middleware(['cors'])->namespace('Admin')->group(function () {
+    Route::resource('states', 'StateController');
+    Route::resource('roles', 'RoleController');
+    Route::resource('categories', 'CategoryController');
+    //Products
+    Route::get('/admin/products', 'ProductController@index');            //Listado
+    Route::get('/admin/last-products', 'ProductController@lastProducts');      //Listado ultimos 15 products
+    Route::get('/admin/products/create', 'ProductController@create');   //Crear
+    Route::get('/admin/products/{product_id}/edit', 'ProductController@edit');      //Editar
+    Route::post('/admin/products/{product_id}/edit', 'ProductController@update');   //Editar
+    Route::delete('/admin/products/{product_id}', 'ProductController@destroy');   //Editar
+    Route::post('/admin/products', 'ProductController@store');           //Registrar
+    
+    //IMAGES
+    Route::get('/products/images', 'ProductImageController@index');            //Listado
+    Route::post('/products/{product_id}/images', 'ProductImageController@store');           //Registrar
+    Route::delete('/products/{product_id}/images', 'ProductImageController@destroy');       //Eliminar
+    Route::post('/products/{product_id}/images/select/{image_id}', 'ProductImageController@select');
+
+    //Route::get('/categories/{category}', 'CategoryController@show');
 });
 
-Route::post('login', 'AuthenticateController@authenticate')->name('login');
+//Route::middleware(['cors','jwt.auth'])->group(function(){
+Route::middleware(['cors'])->group(function(){
+    Route::get('/products/{product_id}', 'ProductController@show');
+    //Search
+    Route::get('/search', 'SearchController@show');
+
+    //CartDetails
+    Route::post('/cart', 'CartDetailController@store');
+    Route::delete('/cart', 'CartDetailController@destroy');
+
+    //Order
+    Route::get('/order', 'CartController@update');
+});

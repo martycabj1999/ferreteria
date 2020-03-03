@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 /*Route::middleware(['auth', 'admin'])->prefix('admin')
-    ->namespace('Admin')->group(function () {*/
+    ->namespace('Admin')->group(function () {
 
 Route::middleware(['cors', 'jwt.auth'])->namespace('Admin')->group(function () {
     //Products
@@ -39,7 +39,7 @@ Route::middleware(['cors', 'jwt.auth'])->namespace('Admin')->group(function () {
     Route::delete('/products/{product_id}/images', 'ProductImageController@destroy');       //Eliminar
     Route::post('/products/{product_id}/images/select/{image_id}', 'ProductImageController@select');       //Eliminar
 
-    //Category
+    /*Category
     Route::get('/categories', 'CategoryController@index');            //Listado
     Route::get('/categories/create', 'CategoryController@create');   //Crear
     Route::post('/categories', 'CategoryController@store'); 
@@ -47,13 +47,13 @@ Route::middleware(['cors', 'jwt.auth'])->namespace('Admin')->group(function () {
     Route::post('/categories/{category_id}/edit', 'CategoryController@update');   //Editar
     Route::delete('/categories/{category_id}', 'CategoryController@destroy');   //Eliminar
     
-    /*States
+    States
     Route::get('/states', 'StateController@index');            //Listado
     Route::get('/states/create', 'StateController@create');   //Crear
     Route::post('/states', 'StateController@store'); 
     Route::get('/states/{states}/edit', 'StateController@edit');      //Editar
     Route::post('/states/{states}/edit', 'StateController@update');   //Editar
-    Route::delete('/states/{states}', 'StateController@destroy');   //Eliminar*/
+    Route::delete('/states/{states}', 'StateController@destroy');   //Eliminar
 
     Route::get('/categories/{category}', 'CategoryController@show');
 });
@@ -71,4 +71,4 @@ Route::middleware(['jwt.auth'])->group(function(){
 
     //Order
     Route::get('/order', 'CartController@update');
-});
+});*/
