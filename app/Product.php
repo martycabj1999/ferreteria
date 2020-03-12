@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+
+    protected $table = 'products';
+    
+    protected $fillable = [
+        'name',
+        'description',
+        'long_description',
+        'price',
+        'category_id'
+    ];
     //Un producto tiene una sola categoria
     //Relacion Uno a muchos, lado de muchos
     public function category(){

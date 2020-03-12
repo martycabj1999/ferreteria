@@ -14,7 +14,7 @@ class CreateTokenPolicyRulesTable extends Migration
     public function up()
     {
         Schema::create('token_policy_rules', function (Blueprint $table) {
-            $table->increments('id');
+            $table->BigIncrements('id');
             //FK
             $table->bigInteger('token_policy_id')->nullable()->unsigned();
             $table->foreign('token_policy_id')->references('id')->on('token_policies')->unsigned();

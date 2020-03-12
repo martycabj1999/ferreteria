@@ -14,9 +14,9 @@ class CreateTokenPoliciesTable extends Migration
     public function up()
     {
         Schema::create('token_policies', function (Blueprint $table) {
-            $table->increments('id');
-            $table->increments('name');
-            $table->increments('description')->nullable();
+            $table->BigIncrements('id');
+            $table->string('name');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

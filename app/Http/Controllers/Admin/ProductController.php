@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Category;
+use App\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Response;
 
 class ProductController extends Controller
@@ -18,7 +20,21 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return Response::json($products);
+        Log::info('Obtuvimos los productos');
+		$response = [];
+		if( $products ){
+			foreach( $products as $product ){ 
+                $category = Category::find($product['category_id']);
+                $images = ProductImage::where('product_id', $product['id'])->get();
+                $product['category'] = $category;
+                $product['images'] = $images;
+                array_push($response, $product);
+			}
+			return \Response::json($response, 200);
+		}else{
+			$response = array ( "response" => 'No se encontraron resultados' );
+			return \Response::json($response, 404);
+		}
     }
     /**
      * Display a listing of the resource.
@@ -65,15 +81,17 @@ class ProductController extends Controller
             'description' => 'required|max:200',
             'price' => 'required|numeric|min:0',
         ];
-        $this->validate($data, $rules, $messages);
+        //$this->validate($data, $rules, $messages);
         //Registrar en la BD el nuevo producto
-        $data = $request()->all();
-        $product = new Product();
-        $product->name = $data->name;
-        $product->description = $data->description;
-        $product->long_description = $data->long_description;
-        $product->price = $data->price;
-        $product->category_id = $data->category_id;
+        $data = \Request::all();
+        $product = new Product($data);
+        /*
+        $product['name'] = $data['name'];
+        $product['description'] = $data['description'];
+        $product['long_description'] = $data['long_description'];
+        $product['price'] = $data['price'];
+        $product['category_id'] = $data['category_id'];
+        */
         $product->save();
         return Response::json(array('El producto fue creado con exito'));
     }
@@ -99,10 +117,13 @@ class ProductController extends Controller
     public function edit($product_id)
     {
 
-        $categories = Category::orderBy('name')->get();
         $product = Product::find($product_id);
-        $info = [$categories, $product];
-        return Response::json($info);
+
+        $category = Category::find($product['category_id']);
+        $images = ProductImage::where('product_id', $product['id'])->get();
+        $product['category'] = $category;
+        $product['images'] = $images;
+        return Response::json($product);
     }
 
     /**
@@ -130,16 +151,18 @@ class ProductController extends Controller
             'description' => 'required|max:200',
             'price' => 'required|numeric|min:0',
         ];
-        $this->validate($data, $rules, $messages);
-        $data = $request()->all();
+        //$this->validate($data, $rules, $messages);
+        $data = \Request::all();
         $product = Product::find($product_id);
-        $product->name = $data->name;
-        $product->description = $data->description;
-        $product->long_description = $data->long_description;
-        $product->price = $data->price;
-        $product->category_id = $data->category_id;
+        $product['name'] = $data['name'];
+        $product['description'] = $data['description'];
+        $product['long_description'] = $data['long_description'];
+        $product['price'] = $data['price'];
+        $product['category_id'] = $data['category_id'];
+        $category = Category::find($product['category_id']);
         $product->save();
-        return Response::json(array('El producto fue editado con exito'));
+        $product['category'] = $category;
+        return Response::json(array($product, 'El producto fue editado con exito'));
     }
 
     /**

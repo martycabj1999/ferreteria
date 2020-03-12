@@ -29,7 +29,7 @@ Route::middleware(['cors'])->namespace('Admin')->group(function () {
     Route::get('/admin/last-products', 'ProductController@lastProducts');      //Listado ultimos 15 products
     Route::get('/admin/products/create', 'ProductController@create');   //Crear
     Route::get('/admin/products/{product_id}/edit', 'ProductController@edit');      //Editar
-    Route::post('/admin/products/{product_id}/edit', 'ProductController@update');   //Editar
+    Route::put('/admin/products/{product_id}/edit', 'ProductController@update');   //Editar
     Route::delete('/admin/products/{product_id}', 'ProductController@destroy');   //Editar
     Route::post('/admin/products', 'ProductController@store');           //Registrar
     

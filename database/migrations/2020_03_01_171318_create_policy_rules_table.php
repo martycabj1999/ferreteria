@@ -14,7 +14,7 @@ class CreatePolicyRulesTable extends Migration
     public function up()
     {
         Schema::create('policy_rules', function (Blueprint $table) {
-            $table->increments('id');
+            $table->BigIncrements('id');
             $table->string('name');
             $table->boolean('fulfill_rule');
             $table->string('validation_regex');
