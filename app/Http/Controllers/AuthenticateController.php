@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exception\JWTException;
 use Illuminate\Support\Facades\Auth;
+use Response;
 
 class AuthenticateController extends Controller
 {
     public function authenticate(Request $request){
 
-        $credentials = $request->only('email', 'password');
-
+        $credentials = \Request::all();
         try {
             if(!$token = JWTAuth::attempt($credentials)){
                 return Response::json(['error' => 'token_invalido', 'status' => '401']);
