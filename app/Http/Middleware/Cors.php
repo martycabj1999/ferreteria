@@ -11,7 +11,7 @@ class Cors
       //Url a la que se le dará acceso en las peticiones
       ->header("Access-Control-Allow-Credentials", "true")
       //Métodos que a los que se da acceso
-      ->header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+      ->header("Access-Control-Allow-Methods", "GET, DELETE, OPTIONS, POST")
       //Headers de la petición Origin, X-Requested-With, Content-Type, Accept
       ->header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, X-Token-Auth, Authorization"); 
   }

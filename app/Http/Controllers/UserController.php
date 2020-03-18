@@ -9,6 +9,8 @@ use App\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use \Response;
+
 
 class UserController extends Controller
 {
@@ -45,20 +47,21 @@ class UserController extends Controller
     {
         $this->validate(request(),[
             'name'   => ['required'],
-            'email'    => ['required']
+            'lastname'   => ['required'],
+            'email'   => ['required'],
+            'telephone'   => ['required'],
             ]);
-            $datos = request()->all();                          //traes todos los parametros que le pase de la pagina de alta
-            $password= 1234;
-            $datos['password']=bcrypt($password);
-            User::create($datos);//crea o actualiza el usuario
-            /*return $password;
-            //Mail para la Contraseña//
-            Mail::raw($password, function ($message) {
-              $message->from('esdeu@gmail.com', 'Password "Esdeu"');
-              $message->to('test@gmail.com')->subject('Bienvenido A ELECTRICA');
-            });*/
-    
-            return redirect()->to('usuario');
+        $datos = \Request::all();               //traes todos los parametros que le pase de la pagina de alta
+        $datos['password']=bcrypt($datos['password']);
+        User::create($datos);//crea o actualiza el usuario
+        /*return $password;
+        //Mail para la Contraseña//
+        Mail::raw($password, function ($message) {
+            $message->from('esdeu@gmail.com', 'Password "Esdeu"');
+            $message->to('test@gmail.com')->subject('Bienvenido A ELECTRICA');
+        });*/
+
+        return Response::json(array($datos, 'El usuario fue creado con exito'));
     }
 
     public function storeEdit($id_usuario) {

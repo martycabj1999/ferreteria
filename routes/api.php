@@ -19,7 +19,16 @@ Route::middleware(['cors'])->group(function () {
         return $request->user();
     });
 
+    //Rutas para logout
+    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+    
+    //Rutas para login
     Route::post('login', 'AuthenticateController@authenticate')->name('login');
+
+    //Register
+    Route::get('/user', 'UserController@index');
+    Route::post('/user', 'UserController@store');
 });
 
 //Route::middleware(['cors', 'jwt.auth'])->namespace('Admin')->group(function () {
@@ -32,8 +41,8 @@ Route::middleware(['cors'])->namespace('Admin')->group(function () {
     Route::get('/admin/last-products', 'ProductController@lastProducts');      //Listado ultimos 15 products
     Route::get('/admin/products/create', 'ProductController@create');   //Crear
     Route::get('/admin/products/{product_id}/edit', 'ProductController@edit');      //Editar
-    Route::put('/admin/products/{product_id}/edit', 'ProductController@update');   //Editar
-    Route::delete('/admin/products/{product_id}', 'ProductController@destroy');   //Editar
+    Route::post('/admin/products/{product_id}/edit', 'ProductController@update');   //Editar
+    Route::delete('/admin/products/{product_id}', 'ProductController@destroy');   //Eliminar
     Route::post('/admin/products', 'ProductController@store');           //Registrar
     
     //IMAGES
