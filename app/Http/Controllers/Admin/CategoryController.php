@@ -17,7 +17,40 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return Response::json($categories);//
+        $response = [];
+        if ($categories){
+            foreach( $categories as $category ){
+                array_push($response, $category);
+			}
+        } else {
+            Log::error('No se pudo obtener los categorias');
+			$response = array ( "response" => 'No se encontraron resultados' );
+			return \Response::json($response, 404);
+        }
+        Log::info('Obtuvimos los categorias');
+        return \Response::json($response, 200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function categoriesFeatured()
+    {
+        $categories = Category::where('featured', 1)->get();
+        $response = [];
+        if ($categories){
+            foreach( $categories as $category ){
+                array_push($response, $category);
+			}
+        } else {
+            Log::error('No se pudo obtener los categorias destacadas');
+			$response = array ( "response" => 'No se encontraron resultados' );
+			return \Response::json($response, 404);
+        }
+        Log::info('Obtuvimos los categorias destacadas');
+        return \Response::json($response, 200);
     }
 
     /**

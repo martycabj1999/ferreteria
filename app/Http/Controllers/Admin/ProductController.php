@@ -41,6 +41,31 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function productsFeatured()
+    {
+        $products = Product::where('featured', 1)->get();
+		$response = [];
+		if( $products ){
+			foreach( $products as $product ){ 
+                $category = Category::find($product['category_id']);
+                $images = ProductImage::where('product_id', $product['id'])->get();
+                $product['category'] = $category;
+                $product['images'] = $images;
+                array_push($response, $product);
+			}
+		} else {
+            Log::error('No se pudo obtener los productos destacados');
+			$response = array ( "response" => 'No se encontraron resultados' );
+			return \Response::json($response, 404);
+        }
+        Log::info('Obtuvimos los productos destacados');
+        return \Response::json($response, 200);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function lastProducts()
     {
         $products = Product::paginate(15);

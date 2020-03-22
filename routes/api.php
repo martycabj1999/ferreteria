@@ -36,8 +36,11 @@ Route::middleware(['cors'])->namespace('Admin')->group(function () {
     Route::resource('states', 'StateController');
     Route::resource('roles', 'RoleController');
     Route::resource('categories', 'CategoryController');
+    Route::get('categories-featured', 'CategoryController@categoriesFeatured');
     //Products
     Route::get('/admin/products', 'ProductController@index');            //Listado
+
+    Route::get('/admin/products-featured', 'ProductController@productsFeatured');      //Listado products featured
     Route::get('/admin/last-products', 'ProductController@lastProducts');      //Listado ultimos 15 products
     Route::get('/admin/products/create', 'ProductController@create');   //Crear
     Route::get('/admin/products/{product_id}/edit', 'ProductController@edit');      //Editar
