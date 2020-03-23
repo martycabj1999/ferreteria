@@ -45,6 +45,7 @@ Route::middleware(['cors'])->namespace('Admin')->group(function () {
     Route::get('/admin/products/create', 'ProductController@create');   //Crear
     Route::get('/admin/products/{product_id}/edit', 'ProductController@edit');      //Editar
     Route::post('/admin/products/{product_id}/edit', 'ProductController@update');   //Editar
+    Route::get('/admin/products/{product_id}/inactive', 'ProductController@inactive');   //Editar
     Route::delete('/admin/products/{product_id}', 'ProductController@destroy');   //Eliminar
     Route::post('/admin/products', 'ProductController@store');           //Registrar
     
