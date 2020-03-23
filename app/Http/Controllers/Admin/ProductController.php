@@ -19,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::where('state_id', 1)->get();
         Log::info('Obtuvimos los productos');
 		$response = [];
 		if( $products ){
@@ -43,7 +43,7 @@ class ProductController extends Controller
      */
     public function productsFeatured()
     {
-        $products = Product::where('featured', 1)->get();
+        $products = Product::where('state_id', 1)->where('featured', 1)->get();
 		$response = [];
 		if( $products ){
 			foreach( $products as $product ){ 
@@ -68,7 +68,7 @@ class ProductController extends Controller
      */
     public function lastProducts()
     {
-        $products = Product::paginate(15);
+        $products = Product::where('state_id', 1)->paginate(15);
         return Response::json($products);
     }
 
@@ -109,14 +109,13 @@ class ProductController extends Controller
         //$this->validate($data, $rules, $messages);
         //Registrar en la BD el nuevo producto
         $data = \Request::all();
-        $product = new Product($data);
-        /*
+        $product = new Product();
         $product['name'] = $data['name'];
         $product['description'] = $data['description'];
         $product['long_description'] = $data['long_description'];
         $product['price'] = $data['price'];
+        $product['state_id'] = 1;
         $product['category_id'] = $data['category_id'];
-        */
         $product->save();
         return Response::json(array('El producto fue creado con exito'));
     }
@@ -183,11 +182,22 @@ class ProductController extends Controller
         $product['description'] = $data['description'];
         $product['long_description'] = $data['long_description'];
         $product['price'] = $data['price'];
+        $product['state_id'] = 1;
         $product['category_id'] = $data['category_id'];
         $category = Category::find($product['category_id']);
         $product->save();
         $product['category'] = $category;
         return Response::json(array($product, 'El producto fue editado con exito'));
+    }
+
+    public function inactive($product_id)
+    {
+        //$this->validate($data, $rules, $messages);
+        $data = \Request::all();
+        $product = Product::find($product_id);
+        $product['state_id'] = 3;
+        $product->save();
+        return Response::json(array('El producto paso a inactivo con exito'));
     }
 
     /**
