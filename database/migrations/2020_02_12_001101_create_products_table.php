@@ -21,6 +21,8 @@ class CreateProductsTable extends Migration
             $table->float('price');
             $table->boolean('featured')->default(false);
             //FK
+            $table->bigInteger('state_id')->unsigned();
+            $table->foreign('state_id')->references('id')->on('states')->unsigned();
             $table->bigInteger('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories')->unsigned();
             $table->timestamps();
