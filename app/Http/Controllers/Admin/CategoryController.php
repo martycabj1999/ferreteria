@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Response;
 
 class CategoryController extends Controller
@@ -21,14 +22,15 @@ class CategoryController extends Controller
         if ($categories){
             foreach( $categories as $category ){
                 array_push($response, $category);
-			}
+            }
+            
+        Log::info('Obtuvimos los categorias');
+        return \Response::json($response, 200);
         } else {
             Log::error('No se pudo obtener los categorias');
 			$response = array ( "response" => 'No se encontraron resultados' );
 			return \Response::json($response, 404);
         }
-        Log::info('Obtuvimos los categorias');
-        return \Response::json($response, 200);
     }
 
     /**
