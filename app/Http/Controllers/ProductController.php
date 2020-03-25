@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\Category;
 use App\ProductImage;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
+use Response;
+use Log;
 
 class ProductController extends Controller
 {
