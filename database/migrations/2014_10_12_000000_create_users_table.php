@@ -26,6 +26,8 @@ class CreateUsersTable extends Migration
             //FK
             $table->bigInteger('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles')->unsigned();
+            $table->bigInteger('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies')->unsigned();
             $table->bigInteger('state_id')->unsigned();
             $table->foreign('state_id')->references('id')->on('states')->unsigned();
             /*$table->bigInteger('city_id')->nullable()->unsigned();
