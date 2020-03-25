@@ -18,8 +18,7 @@ class CustomizationController extends Controller
     public function index()
     {
         $data = \Request::all();
-        $user = User::find($data['id']);
-        $customization = Customization::where('company_id', $user['company_id'])->get();
+        $customization = Customization::all();
         return Response::json($customization);
     }
 
@@ -77,13 +76,19 @@ class CustomizationController extends Controller
      * @param  \App\Customization  $customization
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customization $customization)
+    public function updateColors(Request $request, Customization $customization)
     {
-        $this->validate($request, Customization::$rules, Customization::$messages);
+        //$this->validate($request, Customization::$rules, Customization::$messages);
         $data = \Request::all();
-        $customization = Customization::where('company_id', auth()->user()->company_id);
+        $customization = Customization::all()->first();
+
         //Registrar en la BD el nuevo estado
-        $customization->update( $request->all() );
+        $customization->color_primary = $data['color_primary'];
+        $customization->color_secondary = $data['color_secondary'];
+        $customization->text_primary = $data['text_primary'];
+        $customization->text_secondary = $data['text_secondary'];
+        $customization->save();
+
         return Response::json(array('La personalizacion fue editada con exito'), 200);
     }
 

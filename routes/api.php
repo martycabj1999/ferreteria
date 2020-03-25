@@ -69,7 +69,8 @@ Route::middleware(['cors'])->group(function(){
     Route::delete('/cart', 'CartDetailController@destroy');
 
     //Customization
-    Route::post('/customization', 'CustomizationController@index'); 
+    Route::get('/customization', 'CustomizationController@index'); 
+    Route::post('/customization/edit-colors', 'CustomizationController@updateColors'); 
 
     //Order
     Route::get('/order', 'CartController@update');
