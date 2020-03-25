@@ -64,7 +64,7 @@ Route::middleware(['cors'])->group(function () {
     Route::get('/products/{product_id}', 'ProductController@show');
     //Search
     Route::get('/search', 'SearchController@show');
-    Route::get('/products/{category_id}', 'ProductController@productsByCategoryId');
+    Route::get('/products-by-category/{category_id}', 'ProductController@productsByCategoryId');
 
     //CartDetails
     Route::post('/cart', 'CartDetailController@store');
