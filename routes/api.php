@@ -37,9 +37,9 @@ Route::middleware(['cors'])->namespace('Admin')->group(function () {
     Route::resource('roles', 'RoleController');
     Route::resource('categories', 'CategoryController');
     Route::get('categories-featured', 'CategoryController@categoriesFeatured');
+    
     //Products
     Route::get('/admin/products', 'ProductController@index');            //Listado
-
     Route::get('/admin/products-featured', 'ProductController@productsFeatured');      //Listado products featured
     Route::get('/admin/last-products', 'ProductController@lastProducts');      //Listado ultimos 15 products
     Route::get('/admin/products/create', 'ProductController@create');   //Crear
@@ -67,6 +67,9 @@ Route::middleware(['cors'])->group(function(){
     //CartDetails
     Route::post('/cart', 'CartDetailController@store');
     Route::delete('/cart', 'CartDetailController@destroy');
+
+    //Customization
+    Route::post('/customization', 'CustomizationController@index'); 
 
     //Order
     Route::get('/order', 'CartController@update');
