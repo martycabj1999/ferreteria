@@ -61,7 +61,9 @@ Route::middleware(['cors'])->namespace('Admin')->group(function () {
 //Route::middleware(['cors','jwt.auth'])->group(function(){
 Route::middleware(['cors'])->group(function () {
 
-    Route::get('/products/{product_id}', 'ProductController@show');
+    Route::get('/products/{product_id}', 'ProductController@show');    
+    Route::get('/products/{product_id}', 'ProductController@getProductById');
+
     //Search
     Route::get('/search', 'SearchController@show');
     Route::get('/products-by-category/{category_id}', 'ProductController@productsByCategoryId');

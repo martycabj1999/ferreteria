@@ -53,4 +53,25 @@ class ProductController extends Controller
     $response = array("response" => 'No se encontraron resultados');
     return Response::json($response, 404);
   }
+
+  public function getProductById($productId)
+  {
+    $product = Product::find($productId);
+    Log::info('Obtengo un producto');
+
+    if ($product) {
+
+      $category = Category::find($product['category_id']);
+      $images = ProductImage::where('product_id', $product['id'])->get();
+      $product['category'] = $category;
+      $product['images'] = $images;
+  
+      Log::info('Enviamos el producto correctamente');
+      return Response::json($product, 200);
+    }
+
+    Log::error('No se pudo obtener el producto');
+    return Response::json($product, 404);
+  }
+
 }
