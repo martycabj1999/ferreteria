@@ -18,6 +18,7 @@ class ProductController extends Controller
 
     $imagesLeft = collect();
     $imagesRight = collect();
+
     foreach ($images as $key => $image) {
       if ($key % 2 === 0) {
         $imagesLeft->push($image);
@@ -25,6 +26,7 @@ class ProductController extends Controller
         $imagesRight->push($image);
       }
     }
+    
     $imagesTotal = array();
     $imagesTotal->imagesLeft = $imagesLeft;
     $imagesTotal->imagesRight = $imagesRight;
