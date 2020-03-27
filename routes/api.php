@@ -78,4 +78,7 @@ Route::middleware(['cors'])->group(function () {
 
     //Order
     Route::get('/order', 'CartController@update');
+
+    //Category
+    Route::get('/category/{category_id}', 'CategoryController@categoryById'); 
 });
