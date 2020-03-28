@@ -64,8 +64,7 @@ Route::middleware(['cors'])->group(function () {
     Route::get('/products/{product_id}', 'ProductController@show');    
     Route::get('/products/{product_id}', 'ProductController@getProductById');
 
-    //Search
-    Route::get('/search', 'SearchController@show');
+    //Products By Category
     Route::get('/products-by-category/{category_id}', 'ProductController@productsByCategoryId');
 
     //CartDetails
@@ -81,4 +80,8 @@ Route::middleware(['cors'])->group(function () {
 
     //Category
     Route::get('/category/{category_id}', 'CategoryController@categoryById'); 
+    
+    //Search
+    Route::post('/search', 'SearchController@search');
+    Route::post('/search-results', 'SearchController@searchResults');
 });
