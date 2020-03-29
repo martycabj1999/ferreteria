@@ -82,6 +82,6 @@ Route::middleware(['cors'])->group(function () {
     Route::get('/category/{category_id}', 'CategoryController@categoryById'); 
     
     //Search
-    Route::post('/search', 'SearchController@search');
+    Route::post('/search={search_text}', 'SearchController@search');
     Route::post('/search-results', 'SearchController@searchResults');
 });
